@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JSFiddle wkrabon6</title>
+
+  <style>
+    body{
+  margin:0;
+  overflow:hidden;
+  background:#070716;
+  font-family: Arial, sans-serif;
+  color:white;
+}
+
+/* màn hình đầu */
+.start-screen{
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(45deg,#ff6ec7,#ff2e63);
+}
+
+.start-screen h1{
+  font-size:32px;
+  margin-bottom:30px;
+}
+
+.buttons button{
+  padding:12px 25px;
+  margin:10px;
+  font-size:18px;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+#yes{
+  background:white;
+  color:#ff2e63;
+}
+
+#yes:hover{
+  transform:scale(1.1);
+}
+
+#no{
+  background:black;
+  color:white;
+}
+
+/* hiệu ứng chữ */
+.scene{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  perspective:1000px;
+}
+
+.text{
+  position:absolute;
+  color:#ff6ec7;
+  font-weight:bold;
+  white-space:nowrap;
+  text-shadow:
+    0 0 5px #ff6ec7,
+    0 0 10px #ff4fc3,
+    0 0 20px #ff2ec4,
+    0 0 40px #ff2ec4;
+  animation: float linear forwards;
+}
+
+.heart{
+  position:absolute;
+  color:#ff2e63;
+  animation: float linear forwards;
+}
+
+@keyframes float{
+  0%{
+    transform: translateY(100vh) scale(0.8);
+    opacity:0;
+  }
+  10%{opacity:1;}
+  100%{
+    transform: translateY(-20vh) scale(1.2);
+    opacity:0;
+  }
+}
+
+  </style>
+
+  
+</head>
+<body>
+  <div class="start-screen">
+  <h1>Chúc bé Dun một ngày 14/2 thật đặc biệt…</h1>
+  <div class="buttons">
+    <button id="yes">Yêu💖</button>
+    <button id="no">Không 🙈</button>
+  </div>
+</div>
+
+<div class="scene" style="display:none;"></div>
+
+
+  <script>
+    const startScreen = document.querySelector(".start-screen");
+const scene = document.querySelector(".scene");
+const yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
+
+const messages = [
+  "Bé Dun valentine vui vẻ 💖",
+  "Em là tất cả ✨",
+  "My only love 💕",
+  "Princess của anh 👑"
+];
+
+yesBtn.addEventListener("click", () => {
+  startScreen.style.display = "none";
+  scene.style.display = "block";
+  startEffects();
+});
+
+noBtn.addEventListener("mouseover", () => {
+  noBtn.style.position = "absolute";
+  noBtn.style.left = Math.random()*window.innerWidth + "px";
+  noBtn.style.top = Math.random()*window.innerHeight + "px";
+});
+
+function startEffects(){
+  setInterval(createText, 300);
+  setInterval(createHeart, 500);
+}
+
+function createText(){
+  const text = document.createElement("div");
+  text.className = "text";
+  text.innerText = messages[Math.floor(Math.random()*messages.length)];
+  text.style.left = Math.random() * window.innerWidth + "px";
+  text.style.fontSize = (18 + Math.random()*30) + "px";
+  text.style.animationDuration = (4 + Math.random()*4) + "s";
+  scene.appendChild(text);
+  setTimeout(()=> text.remove(),8000);
+}
+
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.fontSize = (20 + Math.random()*30) + "px";
+  heart.style.animationDuration = (3 + Math.random()*3) + "s";
+  scene.appendChild(heart);
+  setTimeout(()=> heart.remove(),6000);
+}
+
+  </script>
+</body>
+</html>
